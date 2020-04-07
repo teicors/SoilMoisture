@@ -1,0 +1,585 @@
+#include <user_config.h>
+#include <SmingCore/SmingCore.h>
+
+///////////////////////////////////////////////////////////////////
+// Set your SSID & Pass for initial configuration
+#include "configuration.h" // application configuration
+///////////////////////////////////////////////////////////////////
+// wget "http://192.168.1.220/api/output?status=1&led=2" -o pippo
+///////////////////////////////////////////////////////////////////
+#include "special_chars.h"
+#include "webserver.h"
+#include <Libraries/CronLibrary/TimedCommand.h>
+#include <Libraries/CronLibrary/Cron.h>
+#include "NtpClientDelegateDemo.h"
+
+#define TYPEOFBOARD 00
+
+//uint8_t pins[1] = {15}; // List of pins that you want to connect to pwm
+//HardwarePWM HW_pwm(pins, 1);
+void onNtpReceive(NtpClient& client, time_t timestamp);
+
+#define MAX_READ 101
+
+#define JSON_HOST "192.168.1.120"
+#define JSON_PORT 5008
+
+Timer Timer0;
+Timer flashled;
+Timer CronTimer;
+
+int inter0;
+int verso;
+int data_to_send;
+int32_t read0, last0, led0;
+String StrTime;
+
+CronoTempConfig CronoTempCfg;
+LampMessage LampMsg;
+
+FTPServer ftp;
+     
+//
+// TimedCommand 1 : PowerOff
+// TimedCommand 2 : Alarm
+// TimedCommand 3 : Buzzer
+//
+
+// Abilitato, CrontSring, Cosa, PIN
+TimedCommand command01("0","30.09.*.*.*.*","ON","13");
+TimedCommand command02("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command03("0","30.11.*.*.*.*","ON","13");
+TimedCommand command04("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command05("0","30.13.*.*.*.*","ON","13");
+TimedCommand command06("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command07("0","30.15.*.*.*.*","ON","13");
+TimedCommand command08("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command09("0","30.17.*.*.*.*","ON","13");
+TimedCommand command0A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command0B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command0C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command11("0","30.09.*.*.*.*","ON","13");
+TimedCommand command12("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command13("0","30.11.*.*.*.*","ON","13");
+TimedCommand command14("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command15("0","30.13.*.*.*.*","ON","13");
+TimedCommand command16("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command17("0","30.15.*.*.*.*","ON","13");
+TimedCommand command18("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command19("0","30.17.*.*.*.*","ON","13");
+TimedCommand command1A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command1B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command1C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command21("0","30.09.*.*.*.*","ON","13");
+TimedCommand command22("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command23("0","30.11.*.*.*.*","ON","13");
+TimedCommand command24("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command25("0","30.13.*.*.*.*","ON","13");
+TimedCommand command26("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command27("0","30.15.*.*.*.*","ON","13");
+TimedCommand command28("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command29("0","30.17.*.*.*.*","ON","13");
+TimedCommand command2A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command2B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command2C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command31("0","30.09.*.*.*.*","ON","13");
+TimedCommand command32("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command33("0","30.11.*.*.*.*","ON","13");
+TimedCommand command34("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command35("0","30.13.*.*.*.*","ON","13");
+TimedCommand command36("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command37("0","30.15.*.*.*.*","ON","13");
+TimedCommand command38("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command39("0","30.17.*.*.*.*","ON","13");
+TimedCommand command3A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command3B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command3C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command41("0","30.09.*.*.*.*","ON","13");
+TimedCommand command42("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command43("0","30.11.*.*.*.*","ON","13");
+TimedCommand command44("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command45("0","30.13.*.*.*.*","ON","13");
+TimedCommand command46("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command47("0","30.15.*.*.*.*","ON","13");
+TimedCommand command48("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command49("0","30.17.*.*.*.*","ON","13");
+TimedCommand command4A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command4B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command4C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command51("0","30.09.*.*.*.*","ON","13");
+TimedCommand command52("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command53("0","30.11.*.*.*.*","ON","13");
+TimedCommand command54("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command55("0","30.13.*.*.*.*","ON","13");
+TimedCommand command56("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command57("0","30.15.*.*.*.*","ON","13");
+TimedCommand command58("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command59("0","30.17.*.*.*.*","ON","13");
+TimedCommand command5A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command5B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command5C("0","30.20.*.*.*.*","OFF","13");
+
+TimedCommand command61("0","30.09.*.*.*.*","ON","13");
+TimedCommand command62("0","30.10.*.*.*.*","OFF","13");
+TimedCommand command63("0","30.11.*.*.*.*","ON","13");
+TimedCommand command64("0","30.12.*.*.*.*","OFF","13");
+TimedCommand command65("0","30.13.*.*.*.*","ON","13");
+TimedCommand command66("0","30.14.*.*.*.*","OFF","13");
+TimedCommand command67("0","30.15.*.*.*.*","ON","13");
+TimedCommand command68("0","30.16.*.*.*.*","OFF","13");
+TimedCommand command69("0","30.17.*.*.*.*","ON","13");
+TimedCommand command6A("0","30.18.*.*.*.*","OFF","13");
+TimedCommand command6B("0","30.19.*.*.*.*","ON","13");
+TimedCommand command6C("0","30.20.*.*.*.*","OFF","13");
+
+// create an array of timed commands
+TimedCommand *tCommands[] = {
+    &command01,
+    &command02,
+    &command03,
+    &command04,
+    &command05,
+    &command06,
+    &command07,
+    &command08,
+    &command09,
+    &command0A,
+    &command0B,
+    &command0C,
+
+    &command11,
+    &command12,
+    &command13,
+    &command14,
+    &command15,
+    &command16,
+    &command17,
+    &command18,
+    &command19,
+    &command1A,
+    &command1B,
+    &command1C,
+
+    &command21,
+    &command22,
+    &command23,
+    &command24,
+    &command25,
+    &command26,
+    &command27,
+    &command28,
+    &command29,
+    &command2A,
+    &command2B,
+    &command2C,
+
+    &command31,
+    &command32,
+    &command33,
+    &command34,
+    &command35,
+    &command36,
+    &command37,
+    &command38,
+    &command39,
+    &command3A,
+    &command3B,
+    &command3C,
+
+    &command41,
+    &command42,
+    &command43,
+    &command44,
+    &command45,
+    &command46,
+    &command47,
+    &command48,
+    &command49,
+    &command4A,
+    &command4B,
+    &command4C,
+
+    &command51,
+    &command52,
+    &command53,
+    &command54,
+    &command55,
+    &command56,
+    &command57,
+    &command58,
+    &command59,
+    &command5A,
+    &command5B,
+    &command5C,
+
+    &command61,
+    &command62,
+    &command63,
+    &command64,
+    &command65,
+    &command66,
+    &command67,
+    &command68,
+    &command69,
+    &command6A,
+    &command6B,
+    &command6C,
+}
+;
+        
+// create a cron object and pass it the array of timed commands
+// and the count of timed commands
+Cron cron(tCommands,84);
+
+// Forward declarations
+void onMessageReceived(String topic, String message);
+//void publishMessage(int evento, int linea, int tempo);
+void sendData();
+//void setpwn(int led0);
+
+
+void JsonOnComplete(TcpClient& client, bool successful)
+{
+    // debug msg
+    debugf("JsonOnComplete");
+    debugf("successful: %d", successful);
+    client.close();
+}
+
+void JsonOnReadyToSend(TcpClient& client, TcpConnectionEvent sourceEvent)
+{
+    // debug msg
+    debugf("JsonOnReadyToSend");
+    debugf("sourceEvent: %d", sourceEvent);
+
+    // The connection is made at the time of shipment
+    if(sourceEvent == eTCE_Connected)
+    {
+        DynamicJsonBuffer jsonBuffer;
+        JsonObject& MsgToSend = jsonBuffer.createObject();
+
+        MsgToSend["basetta"] = WifiStation.getIP().toString();
+        MsgToSend["pulsante"] = LampMsg.pulsante;
+        MsgToSend["evento"]  = LampMsg.evento;
+        MsgToSend["stato"]   = LampMsg.stato;
+        MsgToSend["valore"]  = LampMsg.valore;
+
+        client.sendString("POST /json HTTP/1.1\r\n");
+        client.sendString("Accept: */*\r\n");
+        client.sendString("Content-Type: application/json;charset=utf-8\r\n");
+        client.sendString("Content-Length: "+String(MsgToSend.measureLength()+1)+"\r\n");
+        client.sendString("\r\n");
+        char buf[MsgToSend.measureLength()];
+        MsgToSend.printTo(buf, sizeof(buf)+1);
+        client.sendString(buf);
+        MsgToSend.printTo(Serial);
+        client.sendString("\r\n");
+    }
+}
+
+bool JsonOnReceive(TcpClient& client, char *buf, int size)
+{
+    // debug msg
+    debugf("JsonOnReceive");
+    debugf("%s", buf);
+    client.close();
+}
+
+// Create an object of class JsonMon TcpClient
+TcpClient JsonMon(JsonOnComplete, JsonOnReadyToSend, JsonOnReceive);
+
+
+
+// This function will be called by timer
+void sendData()
+{
+    // We read the sensor data
+    // connect to the server narodmon
+    JsonMon.connect(JSON_HOST, JSON_PORT);
+}
+
+
+// Callback for messages, arrived from MQTT server
+void onMessageReceived(String topic, String message)
+{
+    Serial.print(topic);
+    Serial.print(":\r\n\t"); // Pretify alignment for printing
+    Serial.println(message);
+}
+
+/*
+void check_button0() {
+//  read0 = micros();
+//  if (cron.setAlarm==false and digitalRead(PIN_BUTTON)==1 ) {
+        if (inter0==true) {   
+//            if (last0 < read0-40000) 
+//            {
+//                last0=read0;
+                LampCfg.lamp=LampCfg.lamp+2*verso;
+                if (LampCfg.lamp<0) {LampCfg.lamp=0;}
+                if (LampCfg.lamp>MAX_READ-1) {LampCfg.lamp=MAX_READ-1; }
+                setpwn(LampCfg.lamp);
+                Serial.printf("Lamp %d\n",LampCfg.lamp);
+//            }
+        }
+     if (data_to_send==1) {
+        LampMsg.evento = LIGHT;
+        LampMsg.stato=Lampada_radiocontrollata;
+        LampMsg.valore=LampCfg.lamp;
+        LampMsg.pulsante=0;
+        saveConfig();
+        sendData();
+        data_to_send=0;    
+    }
+  
+//    }
+}
+
+void IRAM_ATTR interruptHandler01();
+
+void IRAM_ATTR interruptHandler00()
+{
+    inter0=true;
+//    debugf("Key pressed Value %d",cfg.lamp);
+//    debugf("Pressed : interrupt1 %d interrupt2 %d delta %d\n",interrupt1,interrupt2, interrupt1-interrupt2);
+//    interrupt2=interrupt1;
+//    interrupt1=micros();
+    detachInterrupt(INT_PIN0);
+    attachInterrupt(INT_PIN0, interruptHandler01, RISING);
+}
+
+void IRAM_ATTR interruptHandler01()
+{
+    inter0=false;
+    cron.setAlarm=false;
+    cron.setPower=false;
+    cron.setBuzzer=false;
+//    debugf("Key released Value %d",cfg.lamp);
+    verso=verso*-1;
+//    debugf("Key released : direction %d, Led %d\n",verso,cfg.lamp);
+    detachInterrupt(INT_PIN0);
+    attachInterrupt(INT_PIN0, interruptHandler00, FALLING);
+}        
+*/
+
+////// WEB Clock //////
+Timer clockRefresher;
+HttpClient clockWebClient;
+uint32_t lastClockUpdate = 0;
+DateTime clockValue;
+const int clockUpdateIntervalMs = 10 * 60 * 1000; // Update web clock every 10 minutes
+
+/*
+void onClockUpdating(HttpClient& client, bool successful)
+{
+    if (!successful)
+    {
+            debugf("CLOCK UPDATE FAILED %d (code: %d)", successful, client.getResponseCode());
+            lastClockUpdate = 0;
+            return;
+    }
+
+    // Extract date header from response
+    clockValue = client.getServerDate();
+    if (clockValue.isNull()) clockValue = client.getLastModifiedDate();
+}
+
+void refreshClockTime()
+{
+    uint32_t nowClock = millis();
+    if (nowClock < lastClockUpdate) lastClockUpdate = 0; // Prevent overflow, restart
+    if ((lastClockUpdate == 0 || nowClock - lastClockUpdate > clockUpdateIntervalMs) && !clockWebClient.isProcessing())
+    {
+            clockWebClient.downloadString("google.com", onClockUpdating);
+            lastClockUpdate = nowClock;
+    }
+    else if (!clockValue.isNull())
+            clockValue.addMilliseconds(clockRefresher.getIntervalMs());
+
+    if (!clockValue.isNull())
+    {
+            StrTime = clockValue.toShortDateString() + " " + clockValue.toShortTimeString(false);
+
+            if ((millis() % 2000) > 1000)
+                    StrTime.setCharAt(13, ' ');
+            else
+                    StrTime.setCharAt(13, ':');
+    }
+}
+ 
+void startWebClock()
+{
+    lastClockUpdate = 0;
+    clockRefresher.stop();
+    clockRefresher.initializeMs(500, refreshClockTime).start();
+}
+
+void setpwn(int led0)
+{
+    HW_pwm.analogWrite(INT_PIN15, led0*10);
+}
+
+*/
+void startFTP()
+{
+        if (!fileExist("index.html"))
+                fileSetContent("index.html", "<h3>Please connect to FTP and upload files from folder 'web/build' (details in code)</h3>");
+
+        // Start FTP server
+        ftp.listen(21);
+        ftp.addUser("me", "123"); // FTP account
+}
+
+
+void flashaled()
+{
+        digitalWrite(led0,HIGH);
+        delay(50);
+        digitalWrite(led0,LOW);
+        delay(50);
+        digitalWrite(led0,HIGH);
+        delay(50);    
+        digitalWrite(led0,LOW);
+        delay(50);
+        digitalWrite(led0,HIGH);
+        delay(50);    
+        digitalWrite(led0,LOW);
+        delay(50);
+}
+
+void CronLoop()
+{
+//    debugf("CronLoop");
+    cron.loop();
+/*
+    if (cron.setAlarm==true) {
+        flashled.initializeMs(500, flashaled).start();
+    }
+    else {
+        flashled.initializeMs(500, flashaled).stop();
+        setpwn(LampCfg.lamp);
+    }
+    if (cron.setBuzzer==true) {
+        flashled.initializeMs(500, flashaled).start();
+    }
+    if (cron.setPower==true) {
+        LampCfg.lamp=0;
+        verso=1;
+        setpwn(LampCfg.lamp);
+        cron.setPower=false;
+    }
+*/
+}
+
+    
+void SendPresence()
+{
+//    publishMessage(WifiStation.getIP().toString().c_str(),9999,-1);
+    LampMsg.evento=SEND_PRESENCE;
+    LampMsg.stato=Lampada_radiocontrollata;
+    sendData();
+}
+// Callback example using defined class ntpClientDemo
+ntpClientDemo *demo;
+
+// CallBack example 1 
+// ntpClientDemo dm1 = ntpClientDemo();
+// or use 
+// ntpClientDemo dm1;
+
+void onPrintSystemTime() {
+    Serial.print("Local Time    : ");
+    Serial.println(SystemClock.getSystemTimeString());
+    Serial.print("UTC Time: ");
+    Serial.println(SystemClock.getSystemTimeString(eTZ_UTC));
+}
+
+
+// Called when time has been received by NtpClient (option 1 or 2)
+// Either after manual requestTime() or when
+// and automatic request has been made.
+void onNtpReceive(NtpClient& client, time_t timestamp) {
+    SystemClock.setTime(timestamp);
+
+    Serial.print("Time synchronized: ");
+    Serial.println(SystemClock.getSystemTimeString());
+}
+
+// Will be called when WiFi station was connected to AP
+void connectOk(String ssid, uint8_t ssid_len, uint8_t bssid[6], uint8_t channel)
+{
+    debugf("I'm CONNECTED");
+    WifiAccessPoint.enable(false);
+}
+
+void gotIP(IPAddress ip, IPAddress netmask, IPAddress gateway)
+{
+
+    Serial.println(WifiStation.getIP().toString());
+//    Timer0.initializeMs(50, check_button0).start();
+
+    debugf("connected");
+
+    // At first run we will download web server content
+    //if (!fileExist("index.html") || !fileExist("config.html") || !fileExist("bootstrap.css.gz") || !fileExist("jquery.js.gz"))
+    //    downloadContentFiles();
+    //else
+    startWebServer();
+    startFTP();
+    flashled.initializeMs(500, flashaled).stop();
+    CronTimer.initializeMs(1000, CronLoop).start();
+    SendPresence();
+    demo = new ntpClientDemo();
+}
+
+// Will be called when WiFi station timeout was reached
+void connectFail(String ssid, uint8_t ssid_len, uint8_t bssid[6], uint8_t reason)
+{
+        debugf("I'm NOT CONNECTED!");
+	WifiAccessPoint.config("LampConfig", "", AUTH_OPEN);
+	WifiAccessPoint.enable(true);
+
+//	startWebServer();
+
+        WifiStation.disconnect();
+        WifiStation.connect();
+}
+
+void init()
+{
+//    HW_pwm.restart();
+    debugf("Init!");
+
+    flashled.initializeMs(500, flashaled).start();
+    spiffs_mount(); // Mount file system, in order to work with files
+    Serial.begin(SERIAL_BAUD_RATE); // 115200 or 9600 by default
+    delay(3000);
+    inter0=false;
+    cron.setAlarm=false;
+    cron.setPower=false;
+    cron.setBuzzer=false;
+    cron.PrintJobs();
+    verso=1;
+    loadConfig();
+    // set timezone hourly difference to UTC
+    SystemClock.setTimeZone(1);   
+//    Serial.println(cron(tCommands[1]));
+    // Station - WiFi client
+//    attachInterrupt(INT_PIN0, interruptHandler00, FALLING);
+//    WifiStation.enable(true);
+//    WifiStation.config(WIFI_SSID, WIFI_PWD); // Put you SSID and Password here
+
+    WifiStation.enable(true);
+    WifiAccessPoint.enable(false);
+    WifiStation.config(CronoTempCfg.NetworkSSID, CronoTempCfg.NetworkPassword);
+    
+        WifiEvents.onStationConnect(connectOk);
+        WifiEvents.onStationDisconnect(connectFail);
+        WifiEvents.onStationGotIP(gotIP);
+//    setpwn(LampCfg.lamp);
+}

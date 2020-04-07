@@ -1,0 +1,9 @@
+
+SoilMeter_nonos: Invoking 'all' for Esp8266 (debug) architecture
+
+Building /opt/sming/Sming/out/Esp8266/debug/lib/clib-Adafruit_ST7735_AS.a
+make[1]: Nessuna operazione da eseguire per "build".
+
+Building /opt/sming/Sming/out/Esp8266/debug/lib/clib-CronLibrary.a
+make[1]: ***  Nessuna regola per generare l'obiettivo "/opt/sming/Sming/Components/crypto/include/Crypto.h", necessario per "TimedCommand.o".  Arresto.
+make: *** [/opt/sming/Sming/project.mk:387: CronLibrary-build] Error 2

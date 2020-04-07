@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name=".settings">
+      </df>
+      <df name="app">
+        <in>NtpClientDemo.cpp</in>
+        <in>application.cpp</in>
+        <in>configuration.cpp</in>
+        <in>webserver.cpp</in>
+      </df>
+      <df name="include">
+        <df name="ssl">
+          <in>cert.h</in>
+          <in>private_key.h</in>
+        </df>
+        <in>NtpClientDemo.h</in>
+        <in>special_chars.h</in>
+        <in>webserver.h</in>
+      </df>
+      <df name="ld">
+      </df>
+      <df name="out">
+        <df name="build">
+          <df name="app">
+          </df>
+          <df name="opt">
+            <df name="sming">
+              <df name="Sming">
+                <df name="appspecific">
+                  <df name="gdb">
+                  </df>
+                  <df name="rboot">
+                  </df>
+                </df>
+                <df name="third-party">
+                  <df name="rboot">
+                    <df name="appcode">
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>rboot-hex2a.h</in>
+        </df>
+        <df name="Esp8266">
+          <df name="debug">
+            <df name="build">
+              <df name="App">
+                <df name="App-401056c1eab839d112a00735c4c432dc">
+                  <df name="app">
+                  </df>
+                  <df name="Arch">
+                    <df name="Esp8266">
+                      <df name="Components">
+                        <df name="gdbstub">
+                          <df name="appcode">
+                          </df>
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                  <df name="Components">
+                    <df name="rboot">
+                      <df name="appcode">
+                      </df>
+                      <df name="rboot">
+                        <df name="appcode">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+            <df name="firmware">
+            </df>
+            <df name="lib">
+            </df>
+          </df>
+        </df>
+        <df name="firmware">
+        </df>
+      </df>
+      <df name="python">
+      </df>
+      <df name="web">
+        <df name="Libraries">
+          <df name="Adafruit-GFX-Library-master">
+            <df name="fontconvert">
+              <df name="DSEG-0.41">
+                <df name="documents">
+                </df>
+                <df name="fonts">
+                  <df name="DSEG14-Classic">
+                  </df>
+                  <df name="DSEG14-Classic-MINI">
+                  </df>
+                  <df name="DSEG14-Modern">
+                  </df>
+                  <df name="DSEG14-Modern-MINI">
+                  </df>
+                  <df name="DSEG7-7SEGG-CHAN">
+                  </df>
+                  <df name="DSEG7-Classic">
+                  </df>
+                  <df name="DSEG7-Classic-MINI">
+                  </df>
+                  <df name="DSEG7-Modern">
+                  </df>
+                  <df name="DSEG7-Modern-MINI">
+                  </df>
+                  <df name="DSEGWeather">
+                  </df>
+                </df>
+                <df name="sample">
+                </df>
+                <df name="src">
+                </df>
+              </df>
+              <df name="Font">
+                <in>DSEG7Classic-Regular12pt7b.h</in>
+                <in>DSEG7Classic-Regular24pt7b.h</in>
+                <in>DSEG7Classic-Regular9pt7b.h</in>
+                <in>DSEG7ClassicRegular18pt7b.h</in>
+              </df>
+              <in>DSEG7ClassicRegular18pt7b.h</in>
+              <in>fontconvert.c</in>
+            </df>
+            <df name="Fonts">
+              <in>FreeMono12pt7b.h</in>
+              <in>FreeMono18pt7b.h</in>
+              <in>FreeMono24pt7b.h</in>
+              <in>FreeMono9pt7b.h</in>
+              <in>FreeMonoBold12pt7b.h</in>
+              <in>FreeMonoBold18pt7b.h</in>
+              <in>FreeMonoBold24pt7b.h</in>
+              <in>FreeMonoBold9pt7b.h</in>
+              <in>FreeMonoBoldOblique12pt7b.h</in>
+              <in>FreeMonoBoldOblique18pt7b.h</in>
+              <in>FreeMonoBoldOblique24pt7b.h</in>
+              <in>FreeMonoBoldOblique9pt7b.h</in>
+              <in>FreeMonoOblique12pt7b.h</in>
+              <in>FreeMonoOblique18pt7b.h</in>
+              <in>FreeMonoOblique24pt7b.h</in>
+              <in>FreeMonoOblique9pt7b.h</in>
+              <in>FreeSans12pt7b.h</in>
+              <in>FreeSans18pt7b.h</in>
+              <in>FreeSans24pt7b.h</in>
+              <in>FreeSans9pt7b.h</in>
+              <in>FreeSansBold12pt7b.h</in>
+              <in>FreeSansBold18pt7b.h</in>
+              <in>FreeSansBold24pt7b.h</in>
+              <in>FreeSansBold9pt7b.h</in>
+              <in>FreeSansBoldOblique12pt7b.h</in>
+              <in>FreeSansBoldOblique18pt7b.h</in>
+              <in>FreeSansBoldOblique24pt7b.h</in>
+              <in>FreeSansBoldOblique9pt7b.h</in>
+              <in>FreeSansOblique12pt7b.h</in>
+              <in>FreeSansOblique18pt7b.h</in>
+              <in>FreeSansOblique24pt7b.h</in>
+              <in>FreeSansOblique9pt7b.h</in>
+              <in>FreeSerif12pt7b.h</in>
+              <in>FreeSerif18pt7b.h</in>
+              <in>FreeSerif24pt7b.h</in>
+              <in>FreeSerif9pt7b.h</in>
+              <in>FreeSerifBold12pt7b.h</in>
+              <in>FreeSerifBold18pt7b.h</in>
+              <in>FreeSerifBold24pt7b.h</in>
+              <in>FreeSerifBold9pt7b.h</in>
+              <in>FreeSerifBoldItalic12pt7b.h</in>
+              <in>FreeSerifBoldItalic18pt7b.h</in>
+              <in>FreeSerifBoldItalic24pt7b.h</in>
+              <in>FreeSerifBoldItalic9pt7b.h</in>
+              <in>FreeSerifItalic12pt7b.h</in>
+              <in>FreeSerifItalic18pt7b.h</in>
+              <in>FreeSerifItalic24pt7b.h</in>
+              <in>FreeSerifItalic9pt7b.h</in>
+              <in>TomThumb.h</in>
+            </df>
+            <in>Adafruit_GFX.cpp</in>
+            <in>Adafruit_GFX.h</in>
+            <in>gfxfont.h</in>
+            <in>glcdfont.c</in>
+          </df>
+        </df>
+        <df name="themes">
+        </df>
+      </df>
+      <df name="web_old">
+      </df>
+      <df name="web_old1">
+      </df>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

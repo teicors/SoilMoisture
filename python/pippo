@@ -1,0 +1,26 @@
+--2016-03-23 09:27:27--  http://localhost:8080/send?Lello
+Risoluzione di localhost (localhost)... 127.0.0.1
+Connessione a localhost (localhost)|127.0.0.1|:8080... connesso.
+Richiesta HTTP inviata, in attesa di risposta... Nessun dato ricevuto.
+Altro tentativo in corso.
+
+--2016-03-23 09:27:28--  (tentativo: 2)  http://localhost:8080/send?Lello
+Connessione a localhost (localhost)|127.0.0.1|:8080... connesso.
+Richiesta HTTP inviata, in attesa di risposta... Nessun dato ricevuto.
+Altro tentativo in corso.
+
+--2016-03-23 09:27:30--  (tentativo: 3)  http://localhost:8080/send?Lello
+Connessione a localhost (localhost)|127.0.0.1|:8080... connesso.
+Richiesta HTTP inviata, in attesa di risposta... Nessun dato ricevuto.
+Altro tentativo in corso.
+
+--2016-03-23 09:27:33--  (tentativo: 4)  http://localhost:8080/send?Lello
+Connessione a localhost (localhost)|127.0.0.1|:8080... connesso.
+Richiesta HTTP inviata, in attesa di risposta... Nessun dato ricevuto.
+Altro tentativo in corso.
+
+--2016-03-23 09:27:37--  (tentativo: 5)  http://localhost:8080/send?Lello
+Connessione a localhost (localhost)|127.0.0.1|:8080... connesso.
+Richiesta HTTP inviata, in attesa di risposta... Nessun dato ricevuto.
+Altro tentativo in corso.
+

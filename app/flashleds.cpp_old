@@ -1,0 +1,26 @@
+
+void flashleds()
+{
+    digitalWrite(INT_PIN12, 1);
+    digitalWrite(INT_PIN13, 1);
+    digitalWrite(INT_PIN14, 1);
+    digitalWrite(INT_PIN15, 1);
+    delay(100);
+    digitalWrite(INT_PIN12, 0);
+    digitalWrite(INT_PIN13, 0);
+    digitalWrite(INT_PIN14, 0);
+    digitalWrite(INT_PIN15, 0);
+    delay(100);
+    digitalWrite(INT_PIN12, 1);
+    digitalWrite(INT_PIN13, 1);
+    digitalWrite(INT_PIN14, 1);
+    digitalWrite(INT_PIN15, 1);
+    delay(100);    
+    digitalWrite(INT_PIN12, 1);
+    digitalWrite(INT_PIN13, 1);
+    digitalWrite(INT_PIN14, 1);
+    digitalWrite(INT_PIN15, 1);
+    delay(100);
+    
+    
+}
